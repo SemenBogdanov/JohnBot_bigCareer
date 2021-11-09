@@ -30,29 +30,9 @@ async def send_welcome(message: types.Message):
                         reply_markup=keyboards.keyboard2())
 
 
-def get_keyboard():
-    return InlineKeyboardMarkup().row(
-        KeyboardButton('Пора ли звонить?', callback_data=call_data1.new(num='1')),
-    ).row(
-        KeyboardButton('Услуги и цены', callback_data=call_data1.new(num='2')),
-        KeyboardButton('Алгоритм работы', callback_data=call_data1.new(num='3')),
-    ).row(
-        KeyboardButton('Команда', callback_data=call_data1.new(num='4')),
-        KeyboardButton('Контакты', callback_data=call_data1.new(num='5')),
-        KeyboardButton('Об авторе...', callback_data=call_data1.new(num='6')),
-    ).row(
-        InlineKeyboardButton(text='Оставить заявку и получить бонус!', url='https://big-career.ru/',
-                             callback_data=call_data1.new(num='7')),)
-
-
-def keyboard2():
-    return ReplyKeyboardMarkup(resize_keyboard=True).row(
-        KeyboardButton('---Задать вопрос!---'))
-
-
 @dp.message_handler(text=['---Задать вопрос!---'])
 async def ask(message: types.Message):
-    await message.reply('Выберите вопрос и нажмите кнопку:\n', reply_markup=get_keyboard())
+    await message.reply('Выберите вопрос и нажмите кнопку:\n', reply_markup=keyboards.get_keyboard())
 
 
 @dp.callback_query_handler(keyboards.call_data1.filter(num1=['1', '2', '3', '4', '5', '6', '7']))
